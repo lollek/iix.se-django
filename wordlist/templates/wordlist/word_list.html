@@ -1,0 +1,63 @@
+{% extends 'wordlist/base.html' %}
+{% block content %}
+
+<form action="{% url 'wordlist:create' %}" method="post">
+    {% csrf_token %}
+    <label>Language</label>
+    <input name="language"/>
+    <br />
+
+    <label>Category</label>
+    <input name="category"/>
+    <br />
+
+    <label>Word</label>
+    <input name="word"/>
+    <br />
+
+    <label>Pronounciation</label>
+    <input name="pronounciation"/>
+    <br />
+
+    <label>Translation</label>
+    <input name="translation"/>
+    <br />
+    <input type="submit" value="Create" />
+</form>
+
+{% if object_list %}
+<table>
+    <thead>
+        <tr>
+            <th>Language</a></th>
+            <th>Category</a></th>
+            <th>Word</a></th>
+            <th>Pronounciation</a></th>
+            <th>Translation</a></th>
+            <th>Actions</a></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for word in object_list %}
+        <tr>
+            <td>{{ word.language }}</td>
+            <td>{{ word.category }}</td>
+            <td>{{ word.word }}</td>
+            <td>{{ word.pronounciation }}</td>
+            <td>{{ word.translation }}</td>
+            <td>
+                <form action="{% url 'wordlist:delete' word.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No words to display for the given query.</p>
+{% endif %}
+
+{% endblock %}

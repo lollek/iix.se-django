@@ -1,7 +1,25 @@
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import loader
+from django.urls import reverse, reverse_lazy
+from django.views import generic
+
+from .models import Word
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+class WordList(generic.ListView):
+    model = Word
 
-# Create your views here.
+class WordCreate(generic.edit.CreateView):
+    model = Word
+    fields = ['language', 'category', 'word', 'pronounciation', 'translation']
+    success_url = reverse_lazy('wordlist:index')
+
+class WordUpdate(generic.edit.UpdateView):
+    model = Word
+    fields = ['language', 'category', 'word', 'pronounciation', 'translation']
+    success_url = reverse_lazy('wordlist:index')
+
+class WordDelete(generic.edit.DeleteView):
+    model = Word
+    success_url = reverse_lazy('wordlist:index')
