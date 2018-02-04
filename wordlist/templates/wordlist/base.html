@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +8,48 @@
     <meta name="referrer" content="no-referrer">
     <title>iix-notes</title>
     <link rel="shortcut icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet" href="{% static 'wordlist/mdl/material.blue_grey-red.min.css' %}">
+    <script src="{% static 'wordlist/mdl/material.min.js' %}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <h1>Wordlist</h1>
+    <div class="mdl-layout mdl-js-layout">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout-icon"></div>
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout__title">
+                    Wordlist
+                </span>
+            </div>
+        </header>
 
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">
+                    <i class="material-icons"
+                        role="presentation">home</i>
+                    Home</a>
+                <a class="mdl-navigation__link" href="{% url 'wordlist:index' %}">
+                    <i class="material-icons"
+                        role="presentation">g_translate</i>
+                    Wordlist</a>
+                <a class="mdl-navigation__link" href="{% url 'admin:index' %}">
+                    <i class="material-icons"
+                        role="presentation">account_circle</i>
+                    Admin</a>
+            </nav>
+        </div>
 
-    {% block content %}
-    {% endblock %}
+        <main class="mdl-layout__content">
+            {% if error_message %}
+            <p>
+                <strong>{{ error_message }}</strong>
+            </p>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 </body>
 </html>

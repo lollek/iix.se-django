@@ -1,63 +1,107 @@
 {% extends 'wordlist/base.html' %}
 {% block content %}
 
-<form action="{% url 'wordlist:create' %}" method="post">
-    {% csrf_token %}
-    <label>Language</label>
-    <input name="language"/>
-    <br />
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col" >
+        <form action="{% url 'wordlist:create' %}" method="post">
+            {% csrf_token %}
+            <div class="mdl-grid mdl-shadow--2dp"
+                 style="max-width: 560px;">
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
+                    mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label"
+                        id="language">Language</label>
+                    <input name="language"
+                    class="mdl-textfield__input"
+                    for="language">
+                </div>
 
-    <label>Category</label>
-    <input name="category"/>
-    <br />
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
+                    mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label"
+                        id="category">Category</label>
+                    <input name="category"
+                    class="mdl-textfield__input"
+                    for="category">
+                </div>
 
-    <label>Word</label>
-    <input name="word"/>
-    <br />
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
+                    mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label"
+                        id="word">Word</label>
+                    <input name="word"
+                    class="mdl-textfield__input"
+                    for="word">
+                </div>
 
-    <label>Pronounciation</label>
-    <input name="pronounciation"/>
-    <br />
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
+                    mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label"
+                        id="pronounciation">Pronounciation</label>
+                    <input name="pronounciation"
+                    class="mdl-textfield__input"
+                    for="pronounciation">
+                </div>
 
-    <label>Translation</label>
-    <input name="translation"/>
-    <br />
-    <input type="submit" value="Create" />
-</form>
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
+                    mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label"
+                        id="translation">Translation</label>
+                    <input name="translation"
+                    class="mdl-textfield__input"
+                    for="translation">
+                </div>
 
-{% if object_list %}
-<table>
-    <thead>
-        <tr>
-            <th>Language</a></th>
-            <th>Category</a></th>
-            <th>Word</a></th>
-            <th>Pronounciation</a></th>
-            <th>Translation</a></th>
-            <th>Actions</a></th>
-        </tr>
-    </thead>
+                <div class="mdl-cell--12-col mdl-typography--text-right">
+                    <input type="submit"
+                    class="mdl-button mdl-js-button mdl-button--raised
+                    mdl-js-ripple-effect mdl-button--colored"
+                    value="Add" />
+                </div>
+            </div>
+        </form>
+    </div>
 
-    <tbody>
-        {% for word in object_list %}
-        <tr>
-            <td>{{ word.language }}</td>
-            <td>{{ word.category }}</td>
-            <td>{{ word.word }}</td>
-            <td>{{ word.pronounciation }}</td>
-            <td>{{ word.translation }}</td>
-            <td>
-                <form action="{% url 'wordlist:delete' word.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete">
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>No words to display for the given query.</p>
-{% endif %}
+    {% if object_list %}
+    <table class="mdl-cell mdl-cell--12-col mdl-shadow--2dp
+        mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Language</th>
+                <th class="mdl-data-table__cell--non-numeric">Category</th>
+                <th class="mdl-data-table__cell--non-numeric">Word</th>
+                <th class="mdl-data-table__cell--non-numeric">Pronounciation</th>
+                <th class="mdl-data-table__cell--non-numeric">Translation</th>
+                <th class="mdl-data-table__cell--non-numeric">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for word in object_list %}
+            <tr>
+                <td class="mdl-data-table__cell--non-numeric">{{ word.language }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ word.category }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ word.word }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ word.pronounciation }}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ word.translation }}</td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <form action="{% url 'wordlist:delete' word.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit"
+                        class="mdl-button mdl-js-button mdl-button--raised
+                        mdl-js-ripple-effect mdl-button--accent"
+                        value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+        <p>No words to display for the given query.</p>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}
