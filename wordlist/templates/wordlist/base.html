@@ -8,39 +8,29 @@
     <meta name="referrer" content="no-referrer">
     <title>iix-notes</title>
     <link rel="shortcut icon" href="/static/favicon.ico"/>
-    <link rel="stylesheet" href="{% static 'wordlist/mdl/material.blue_grey-red.min.css' %}">
-    <script src="{% static 'wordlist/mdl/material.min.js' %}"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet"
+    href="https://cdn.concisecss.com/concise.min.css">-->
+    <link rel="stylesheet" type="text/css" href="http://fastly.ink.sapo.pt/3.1.10/css/ink.css">
+    <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
 </head>
 <body>
-    <div class="mdl-layout mdl-js-layout">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout-icon"></div>
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout__title">
-                    Wordlist
-                </span>
-            </div>
+    <div>
+        <header class="ink-navigation">
+            <ul class="menu horizontal black">
+                <li class="heading">
+                    <a href="/">Home</a>
+                </li>
+                <li class="heading">
+                    <a href="{% url 'wordlist:index' %}">Wordlist</a>
+                </li>
+                <li class="heading">
+                    <a href="{% url 'admin:index' %}">Admin</a>
+                </li>
+            </ul>
         </header>
 
-        <div class="mdl-layout__drawer">
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="/">
-                    <i class="material-icons"
-                        role="presentation">home</i>
-                    Home</a>
-                <a class="mdl-navigation__link" href="{% url 'wordlist:index' %}">
-                    <i class="material-icons"
-                        role="presentation">g_translate</i>
-                    Wordlist</a>
-                <a class="mdl-navigation__link" href="{% url 'admin:index' %}">
-                    <i class="material-icons"
-                        role="presentation">account_circle</i>
-                    Admin</a>
-            </nav>
-        </div>
 
-        <main class="mdl-layout__content">
+        <main>
             {% if error_message %}
             <p>
                 <strong>{{ error_message }}</strong>

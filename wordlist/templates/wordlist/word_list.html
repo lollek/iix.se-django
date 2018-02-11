@@ -1,96 +1,81 @@
 {% extends 'wordlist/base.html' %}
 {% block content %}
 
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col" >
-        <form action="{% url 'wordlist:create' %}" method="post">
+<div style="padding: 18px;">
+    <div class="">
+        <form action="{% url 'wordlist:create' %}" method="post" class="ink-form">
             {% csrf_token %}
-            <div class="mdl-grid mdl-shadow--2dp"
-                 style="max-width: 560px;">
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
-                    mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label"
-                        id="language">Language</label>
-                    <input name="language"
-                    class="mdl-textfield__input"
-                    for="language">
+            <div class="column-group gutters">
+                <div class="control-group all-33">
+                    <label id="category">Category</label>
+                    <div class="control">
+                        <input name="category" for="category">
+                    </div>
                 </div>
 
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
-                    mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label"
-                        id="category">Category</label>
-                    <input name="category"
-                    class="mdl-textfield__input"
-                    for="category">
+                <div class="control-group all-33">
+                    <label id="word">Word</label>
+                    <div class="control">
+                        <input name="word" for="word">
+                    </div>
                 </div>
 
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
-                    mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label"
-                        id="word">Word</label>
-                    <input name="word"
-                    class="mdl-textfield__input"
-                    for="word">
+                <div class="control-group all-33">
+                    <label id="pronounciation">Pronounciation</label>
+                    <div class="control">
+                        <input name="pronounciation" for="pronounciation">
+                    </div>
                 </div>
 
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
-                    mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label"
-                        id="pronounciation">Pronounciation</label>
-                    <input name="pronounciation"
-                    class="mdl-textfield__input"
-                    for="pronounciation">
-                </div>
-
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield
-                    mdl-textfield--floating-label">
-                    <label class="mdl-textfield__label"
-                        id="translation">Translation</label>
-                    <input name="translation"
-                    class="mdl-textfield__input"
-                    for="translation">
-                </div>
-
-                <div class="mdl-cell--12-col mdl-typography--text-right">
-                    <input type="submit"
-                    class="mdl-button mdl-js-button mdl-button--raised
-                    mdl-js-ripple-effect mdl-button--colored"
-                    value="Add" />
+                <div class="control-group all-100">
+                    <label id="translation">Translation</label>
+                    <div class="control">
+                        <input name="translation" for="translation">
+                    </div>
                 </div>
             </div>
+            <input type="submit" value="Add" class="ink-button green push-right" />
         </form>
     </div>
 
     {% if object_list %}
-    <table class="mdl-cell mdl-cell--12-col mdl-shadow--2dp
-        mdl-data-table mdl-js-data-table">
+    <table class="ink-table">
         <thead>
             <tr>
-                <th class="mdl-data-table__cell--non-numeric">Language</th>
-                <th class="mdl-data-table__cell--non-numeric">Category</th>
-                <th class="mdl-data-table__cell--non-numeric">Word</th>
-                <th class="mdl-data-table__cell--non-numeric">Pronounciation</th>
-                <th class="mdl-data-table__cell--non-numeric">Translation</th>
-                <th class="mdl-data-table__cell--non-numeric">Actions</th>
+                <th>Category</th>
+                <th>Word</th>
+                <th>Translation</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
             {% for word in object_list %}
             <tr>
-                <td class="mdl-data-table__cell--non-numeric">{{ word.language }}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{ word.category }}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{ word.word }}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{ word.pronounciation }}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{ word.translation }}</td>
-                <td class="mdl-data-table__cell--non-numeric">
+                <td>
+                    <div class="uppercase fw-100">
+                        <em>{{ word.category }}</em>
+                    </div>
+                </td>
+                <td>
+                    <div style="font-size: 2em !important;">
+                        <ruby>
+                            {{ word.word }}
+                            <rt>
+                                {{ word.pronounciation }}
+                            </rt>
+                        </ruby>
+                    </div>
+                </td>
+                <td>
+                    <div class="condensed-300">
+                        {{ word.translation }}
+                    </div>
+                </td>
+                <td>
                     <form action="{% url 'wordlist:delete' word.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit"
-                        class="mdl-button mdl-js-button mdl-button--raised
-                        mdl-js-ripple-effect mdl-button--accent"
-                        value="Delete">
+                        <input type="submit" value="Delete" class="ink-button red">
                     </form>
                 </td>
             </tr>
@@ -98,7 +83,7 @@
         </tbody>
     </table>
     {% else %}
-    <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+    <div>
         <p>No words to display for the given query.</p>
     </div>
     {% endif %}
